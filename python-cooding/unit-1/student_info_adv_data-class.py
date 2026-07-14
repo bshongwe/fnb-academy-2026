@@ -1,23 +1,15 @@
-# Advanced level - Class-based - Student Info Formatter
+# Advanced level - Data Class Student Info Formatter
 
+from dataclasses import dataclass, field
+
+@dataclass
 class Student:
     """Represents a student and their profile."""
 
-    FIELDS = [
-        ("first_name", str,   "Enter your first name: "),
-        ("surname",    str,   "Enter your surname: "),
-        ("age",        int,   "Enter your age: "),
-        ("favourite_number", float, "Enter your favourite number: "),
-    ]
-
-    def __init__(self):
-        try:
-            for attr, cast, prompt in self.FIELDS:
-                setattr(self, attr, cast(input(prompt).strip()))
-            self.first_name = self.first_name.title()
-            self.surname    = self.surname.title()
-        except ValueError as e:
-            exit(f"Invalid input: {e}. Please restart and try again.")
+    first_name      : str   = field(default_factory=lambda: input("Enter your first name: ").strip().title())
+    surname         : str   = field(default_factory=lambda: input("Enter your surname: ").strip().title())
+    age             : int   = field(default_factory=lambda: int(input("Enter your age: ").strip()))
+    favourite_number: float = field(default_factory=lambda: float(input("Enter your favourite number: ").strip()))
 
     @property
     def full_name(self) -> str:
@@ -39,4 +31,7 @@ class Student:
 
 
 if __name__ == "__main__":
-    print(Student())
+    try:
+        print(Student())
+    except ValueError as e:
+        exit(f"Invalid input: {e}. Please restart and try again.")
