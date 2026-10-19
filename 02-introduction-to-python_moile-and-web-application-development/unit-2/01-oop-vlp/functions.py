@@ -21,8 +21,8 @@ def evens_up_to(n):
 
     Note: you must return the list itself, not print the numbers.
     """
-    # TODO: build a list and return it
-    pass
+    # 1: build a list and return it
+    return [i for i in range(0, n + 1, 2)]
 
 
 def min_max(numbers):
@@ -36,8 +36,8 @@ def min_max(numbers):
     Hint: a function can return more than one value by separating them
     with a comma.
     """
-    # TODO
-    pass
+    # 2: use the built-in min() and max() functions
+    return min(numbers), max(numbers)
 
 
 def safe_divide(a, b):
@@ -51,8 +51,10 @@ def safe_divide(a, b):
 
     Hint: check for the bad case first and return early.
     """
-    # TODO
-    pass
+    # 3: check for b == 0, return None, otherwise return a / b
+    if b == 0:
+        return None
+    return a / b
 
 
 def total(numbers):
@@ -63,8 +65,8 @@ def total(numbers):
     Example:
         total([2, 4, 6])  ->  12
     """
-    # TODO
-    pass
+    # 4: use the built-in sum() function
+    return sum(numbers)
 
 
 def average(numbers):
@@ -76,8 +78,10 @@ def average(numbers):
     Example:
         average([2, 4, 6])  ->  4.0
     """
-    # TODO: call total(numbers), then divide
-    pass
+    # 5: call total(numbers), then divide
+    if not numbers:
+        return None
+    return total(numbers) / len(numbers)
 
 
 def initials(full_name):
@@ -90,8 +94,9 @@ def initials(full_name):
 
     Hint: split the name into words, take the first letter of each.
     """
-    # TODO
-    pass
+    # 6: split the name into words, take the first letter of each, join with "."
+    words = full_name.split()
+    return "".join([word[0].upper() + "." for word in words])
 
 
 def format_currency(amount, symbol="R"):
@@ -105,8 +110,8 @@ def format_currency(amount, symbol="R"):
         format_currency(9.5)        ->  "R9.50"
         format_currency(20, "$")    ->  "$20.00"
     """
-    # TODO
-    pass
+    # 7: use an f-string to format the amount with two decimal places
+    return f"{symbol}{amount:.2f}"
 
 
 def countdown(n):
@@ -124,8 +129,10 @@ def countdown(n):
         - the base case: when do you stop?
         - the recursive step: what smaller problem do you hand onwards?
     """
-    # TODO
-    pass
+    # 8: use recursion to build the countdown string
+    if n <= 0:
+        return "Liftoff"
+    return f"{n} {countdown(n - 1)}"
 
 
 def print_table(n):
@@ -139,8 +146,9 @@ def print_table(n):
         ...
         3 x 10 = 30
     """
-    # TODO
-    pass
+    # 9: use a for loop to print the times table
+    for i in range(1, 11):
+        print(f"{n} x {i} = {n * i}")
 
 
 # =====================================================================
