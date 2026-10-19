@@ -25,9 +25,13 @@ def rectangle_area(length, width):
     """
     Return the area of a rectangle.
 
+    Both dimensions must be non-negative.
+
     Example:
         rectangle_area(5, 4)  ->  20.0
     """
+    if length < 0 or width < 0:
+        raise ValueError("Rectangle dimensions cannot be negative.")
     return length * width
 
 
@@ -64,10 +68,13 @@ def factorial(n):
     """
     Return n factorial (n!), i.e. n * (n-1) * (n-2) * ... * 1
     By definition, factorial(0) is 1.
+    n must be non-negative.
 
     Example:
         factorial(5)  ->  120
     """
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers.")
     result = 1
     for i in range(2, n + 1):
         result *= i
@@ -79,12 +86,17 @@ def apply_discount(price, percentage=10):
     Return the price after subtracting the given percentage.
     'percentage' is a DEFAULT PARAMETER: when the caller leaves it out,
     a 10% discount must be applied.
+    The price must be non-negative, and percentage must be between 0 and 100.
     Round the answer to 2 decimal places.
 
     Example:
         apply_discount(200)      ->  180.0
         apply_discount(250, 20)  ->  200.0
     """
+    if price < 0:
+        raise ValueError("Price cannot be negative.")
+    if percentage < 0 or percentage > 100:
+        raise ValueError("Discount percentage must be between 0 and 100.")
     discounted_price = price - (price * percentage / 100)
     return round(discounted_price, 2)
 
