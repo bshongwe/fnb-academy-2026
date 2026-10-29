@@ -37,12 +37,16 @@ class Elephant(Animal):
     # passing name and age, then set self.trunkLength
 
     def __init__(self, name, age, trunkLength):
-        pass
+        super().__init__(name, age)
+        self.trunkLength = trunkLength
 
     # TODO 2: Override makeSound() so it:
     #   - calls the base class's makeSound() using super()
     #   - then prints "GORRRRRRR"
 
+    def makeSound(self):
+        super().makeSound()
+        print("GORRRRRRR")
 
 class ZOO:
 
@@ -52,14 +56,14 @@ class ZOO:
 
     # TODO 3: complete this method so animals can be added after the Zoo is created
 
-    def addAnimal(self, addAnimal):
-        pass
+    def addAnimal(self, new_animal):
+        self.animals.append(new_animal)
 
     # TODO 4: complete this method so animals can be removed after creation
 
-    def removeAnimal(self, addAnimal):
-        pass
-
+    def removeAnimal(self, animal_to_remove):
+        if animal_to_remove in self.animals:
+            self.animals.remove(animal_to_remove)
 
 def demo():
     L1 = Lion("Bob", 20, "yellow")
@@ -76,6 +80,9 @@ def demo():
 
     # TODO 5: Create an instance of Elephant and add it to the zoo
     # using the addAnimal() method provided
+
+    E1 = Elephant("Dumbo", 5, 150)
+    Z1.addAnimal(E1)
 
     # If correctly defined, this second loop should now also print
     # the elephant's info and its sound
@@ -95,3 +102,63 @@ def demo():
     print("--------END OF TEST 3--------")
 
     return Z1
+
+# =====================================================================
+#  DO NOT MODIFY ANYTHING BELOW THIS LINE
+#  Press Enter when you click Run to see your program's output.
+# =====================================================================
+import io
+import contextlib
+
+def _quiet(fn, *args):
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        value = fn(*args)
+    return buf.getvalue(), value
+
+def _main():
+    try:
+        test = input().strip()
+    except EOFError:
+        test = ""
+
+    if test in ("", "demo"):
+        demo()
+        return
+
+    try:
+        if test == "1":
+            e = Elephant("Dumbo", 5, 150)
+            print(e.name, e.age, e.trunkLength)
+
+        elif test == "2":
+            e = Elephant("Dumbo", 5, 150)
+            out, _ = _quiet(e.makeSound)
+            lines = [l.strip() for l in out.splitlines() if l.strip()]
+            print(len(lines), lines[-1] if lines else "")
+
+        elif test == "3":
+            z = ZOO("Test", [])
+            z.addAnimal(Lion("Leo", 4, "gold"))
+            z.addAnimal(Snake("Sid", 2, 100))
+            print(len(z.animals))
+
+        elif test == "4":
+            lion = Lion("Leo", 4, "gold")
+            z = ZOO("Test", [lion, Snake("Sid", 2, 100)])
+            z.removeAnimal(lion)
+            print(len(z.animals), lion in z.animals)
+
+        elif test == "5":
+            _, zoo = _quiet(demo)
+            print(any(isinstance(a, Elephant) for a in zoo.animals),
+                  any(isinstance(a, Lion) for a in zoo.animals))
+
+        else:
+            print("unknown test")
+
+    except Exception as error:
+        print("ERROR:", type(error).__name__)
+
+if __name__ == "__main__":
+    _main()
