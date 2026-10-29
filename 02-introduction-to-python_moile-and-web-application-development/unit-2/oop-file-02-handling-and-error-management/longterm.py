@@ -30,13 +30,21 @@ def saveTextFile(multiple, valueArray, value2):
     # valueArray, then divide that answer by value2.
     # For example: 5 with [1, 3, 5, 7] and value2 = 2
     #              gives 5*1*3*5*7 = 525, then 525 / 2 = 262.5
+    
+    if value2 == 0:
+        print("Error: Cannot divide by zero.")
+        return
 
-    result = None
+    result = multiple
+
     # accumulate and multiply here
     for v in valueArray:
-        pass
+        result *= v
+    
+    final_answer = result / value2
 
     # TODO 2: Write the multiple used, the full list of values, and the
+    # final answer into the file named by OUTFILE.
     # final answer into the file named by OUTFILE.
     # Wrap the file handling in a try/except block and print a friendly
     # message instead of crashing.
@@ -47,9 +55,13 @@ def saveTextFile(multiple, valueArray, value2):
 
     # Hint: opening a file in 'w' mode replaces whatever was there before.
     # Consider which mode you actually want.
-
-    pass
-
+    try:
+        with open(OUTFILE, 'w') as f:
+            f.write(f"Multiple: {multiple}\n")
+            f.write(f"Values: {valueArray}\n")
+            f.write(f"Result: {final_answer}\n")
+    except Exception as e:
+        print(f"An error occurred while writing to the file: {e}")
 
 def readTextFile(filename):
     # TODO 3: Open the text file you just made and read from it.
@@ -58,16 +70,25 @@ def readTextFile(filename):
 
     # TODO 4: Once you have the contents, print them out to the terminal.
     # Think about how to loop through them and print each one nicely.
-
-    pass
-
+    try:
+        with open(filename, 'r') as f:
+            contents = f.read()
+            print(contents)
+            return contents
+    except FileNotFoundError:
+        print(f"Friendly message: Sorry, the file '{filename}' does not exist.")
+        return ""
 
 def demo():
+    # This tests the zero division case
+    print("--- Testing Zero Division ---")
     saveTextFile(5, [1, 3, 5, 7], 0)
 
     # TODO 5: Call saveTextFile with a value2 that is not zero, then
     # display the contents of the file in the terminal.
-
+    print("\n--- Testing Successful Calculation ---")
+    saveTextFile(5, [1, 3, 5, 7], 2)
+    readTextFile(OUTFILE)
 
 # =====================================================================
 #  DO NOT MODIFY ANYTHING BELOW THIS LINE
