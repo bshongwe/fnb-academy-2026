@@ -26,7 +26,7 @@ async def main(page: ft.Page):
                     return
 
                 user_name = entered_name
-                page.push_route("/greeting")
+                await page.go("/greeting")
 
             page.views.append(
                 ft.View(
@@ -53,7 +53,7 @@ async def main(page: ft.Page):
                         ft.Text(f"Hello, {user_name}!", size=40),
                         ft.Button(
                             content="Back",
-                            on_click=lambda _: page.push_route("/"),
+                            on_click=lambda _: page.go("/"),
                         ),
                     ],
                     vertical_alignment=ft.MainAxisAlignment.CENTER,
